@@ -1581,6 +1581,10 @@ struct task_struct {
 	/* task is frozen/stopped (used by the cgroup freezer) */
 	ANDROID_KABI_USE(1, unsigned frozen:1);
 
+#ifdef CONFIG_ANDROID_SIMPLE_LMK
+	struct task_struct		*simple_lmk_next;
+#endif
+
 #ifdef CONFIG_OPCHAIN
 	u64 utask_tag;
 	u64 utask_tag_base;
