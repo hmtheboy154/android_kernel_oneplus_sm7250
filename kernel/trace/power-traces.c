@@ -21,3 +21,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(powernv_throttle);
 // 2020/04/01, add for pccore CONFIG_PCCORE
 EXPORT_TRACEPOINT_SYMBOL_GPL(cpu_frequency_select);
 
+EXPORT_TRACEPOINT_SYMBOL_GPL(clock_set_rate);
