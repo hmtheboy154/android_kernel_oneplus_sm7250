@@ -48,7 +48,7 @@ default='\033[0m'
 KERNEL_DIR=$PWD
 
 # Kernel Version
-VERSION="X1-Chidori"
+VERSION="alpha"
 
 # The name of the device for which the kernel is built
 #MODEL="OnePlus Nord"
@@ -68,7 +68,7 @@ COMPILER=clang
 INCREMENTAL=0
 
 # Generate a full DEFCONFIG prior building. 1 is YES | 0 is NO(default)
-DEF_REG=0
+DEF_REG=1
 
 # Build dtbo.img (select this only if your source has support to building dtbo.img)
 # 1 is YES | 0 is NO(default)
@@ -79,10 +79,10 @@ BUILD_DTBO=0
 SILENCE=0
 
 # The name of the Kernel, to name the ZIP
-ZIPNAME="Escrima-$VERSION"
+ZIPNAME="Stormbreaker-r3c0nf1gur3d-$VERSION"
 
 # Set Date and Time Zone
-DATE=$(TZ=Asia/Kolkata date +"%Y%m%d-%T")
+DATE=$(TZ=Asia/Ho_Chi_Minh date +"%Y%m%d-%T")
 
 
 ##----------------------------------------------------------------------------------##
@@ -92,11 +92,10 @@ DATE=$(TZ=Asia/Kolkata date +"%Y%m%d-%T")
 	echo " "
 	if [ $COMPILER = "clang" ]
 	then
-		msg "|| Cloning Proton Clang-12 ||"
-		git clone --depth=1 https://github.com/kdrag0n/proton-clang.git /home/amolamrit/clang-llvm
-
+		msg "|| Cloning Proton Clang-13 ||"
+		git clone --depth=1 https://github.com/kdrag0n/proton-clang.git /src/clang-llvm
 		# Toolchain Directory defaults to clang-llvm
-		TC_DIR=/home/amolamrit/clang-llvm
+		TC_DIR=/src/clang-llvm
 	elif [ $COMPILER = "gcc" ]
 	then
 		msg "|| Cloning GCC 9.3.0 baremetal ||"
@@ -107,7 +106,7 @@ DATE=$(TZ=Asia/Kolkata date +"%Y%m%d-%T")
 	fi
 
 	msg "|| Cloning libufdt ||"
-	git clone https://android.googlesource.com/platform/system/libufdt /home/amolamrit/scripts/ufdt/libufdt
+	git clone https://android.googlesource.com/platform/system/libufdt /src/libufdt
 }
 
 
@@ -115,8 +114,8 @@ DATE=$(TZ=Asia/Kolkata date +"%Y%m%d-%T")
 ##----------Export more variables --------------------------------------------##
 
 exports() {
-	export KBUILD_BUILD_USER="AmolAmrit"
-        export KBUILD_BUILD_HOST="Nightwing"
+	export KBUILD_BUILD_USER="HMTheBoy154"
+        export KBUILD_BUILD_HOST="jenkins"
 	export ARCH=arm64
 	export SUBARCH=arm64
 
@@ -190,7 +189,7 @@ build_kernel() {
 	    	if [ $BUILD_DTBO = 1 ]
 			then
 				msg "|| Building DTBO ||"
-				python2 "/home/amolamrit/scripts/ufdt/libufdt/utils/src/mkdtboimg.py" \
+				python2 "/src/libufdt/utils/src/mkdtboimg.py" \
 				create "$KERNEL_DIR/out/arch/arm64/boot/dtbo.img" --page_size=4096 "$KERNEL_DIR/out/arch/arm64/boot/dts/vendor/qcom/avicii-overlay-dvt.dtbo"
 			fi
 				gen_zip
@@ -211,7 +210,7 @@ gen_zip() {
 ##-----------------Uploading-------------------------------##
 
 msg "|| Uploading ||"
-cp *.zip /var/www/html/builds/avicii/Escrima
+cp *.zip /var/www/html/builds/avicii/Stormbreaker
 	cd ..
 }
 
