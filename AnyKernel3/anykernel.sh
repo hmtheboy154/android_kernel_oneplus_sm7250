@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=Escrima-X1-Chidori by AmolAmrit @ xda-developers
+kernel.string=Stormbreaker-r3c0nf1gur3d by MajorP93 & HMTheBoy154 @ xda-developers
 do.devicecheck=1
 do.modules=0
 do.systemless=1
